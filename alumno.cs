@@ -10,11 +10,12 @@ namespace MP1
     {
         private int legajo;
         private double promedio;
+        private Strategy? strategy = null;
 
         public Alumno(string n, int d, int l, double p) : base(n, d)
         {
-            legajo = l;
-            promedio = p;
+            this.legajo = l;
+            this.promedio = p;
         }
 
         public int Legajo
@@ -33,25 +34,30 @@ namespace MP1
             }
         }
 
+        public void SetStrategy(Strategy newStrategy)
+        {
+            strategy = newStrategy;
+        }
+
         public override bool sosIgual(Comparable c)
         {
-            return Legajo == ((Alumno)c).Legajo;
+            return strategy.sosIgual(this, c);
         }
 
         public override bool sosMenor(Comparable c)
         {
-            return Legajo > ((Alumno)c).Legajo;
+            return strategy.sosMenor(this, c);
 
         }
 
         public override bool sosMayor(Comparable c)
         {
-            return Legajo < ((Alumno)c).Legajo;
+            return strategy.sosMayor(this, c);
         }
 
         public override string ToString()
         {
-            return "Nombre: " + Nombre + " DNI: " + DNI + " Legajo: " + Legajo + " Promedio: " + Promedio;
+            return "Nombre: " + this.Nombre + " DNI: " + this.DNI + " Legajo: " + this.Legajo + " Promedio: " + this.Promedio;
         }
     }
 }

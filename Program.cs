@@ -42,14 +42,39 @@ static void llenarAlumnos(Coleccionable c)
 {
     for (int i = 0; i < 20; i++)
     {
-        Comparable comparable = new Alumno(GetNombre(), i, i, new Random().Next(10));
-        c.agregar(comparable);
+        Alumno alumno = new Alumno(GetNombre(), i, i, new Random().Next(10));
+        alumno.SetStrategy(new CompararDNIStrategy());
+        c.agregar(alumno);
+    }
+}
+static void imprimirElementos(Coleccionable c)
+{
+    Iterador iter = c.crearIterador();
+
+    while (!iter.fin())
+    {
+        Console.WriteLine(iter.actual());
+        iter.siguiente();
+    }
+}
+static void cambiarEstrategia(Pila pila, Strategy st)
+{
+    foreach (Alumno elem in pila.lista)
+    {
+        elem.SetStrategy(st);
     }
 }
 
 Pila pila = new Pila();
-Cola cola = new Cola();
-ColeccionMultiple multiple = new ColeccionMultiple(pila, cola);
 llenarAlumnos(pila);
-llenarAlumnos(cola);
-informar(multiple);
+cambiarEstrategia(pila, new CompararNombreStrategy());
+
+informar(pila);
+cambiarEstrategia(pila, new CompararLegajoStrategy());
+
+informar(pila);
+cambiarEstrategia(pila, new CompararPromedioStrategy());
+
+informar(pila);
+cambiarEstrategia(pila, new CompararDNIStrategy());
+informar(pila);

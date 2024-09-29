@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MP1
 {
-    class Cola : Coleccionable
+    class Cola : Coleccionable, Iterable
     {
-        private ArrayList lista;
+        public List<Comparable> lista;
         public Cola()
         {
-            lista = new ArrayList();
+            this.lista = new List<Comparable>();
         }
 
         public int cuantos()
@@ -61,6 +58,11 @@ namespace MP1
                 }
             }
             return false;
+        }
+
+        public Iterador crearIterador()
+        {
+            return new IteradorCola(lista);
         }
     }
 }
