@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class Alumno : Persona
+    class Alumno : Persona, Observador
     {
         private int legajo;
         private double promedio;
@@ -54,7 +54,26 @@ namespace MP1
         {
             return strategy.sosMayor(this, c);
         }
+        public void prestarAtencion()
+        {
+            Console.WriteLine("Prestando atención");
+        }
 
+        public void distraerse()
+        {
+            Console.WriteLine("Dibujando en el margen de la carpeta”, “Tirando aviones de papel");
+        }
+        public void update(string accion)
+        {
+            if (accion == "hablar")
+            {
+                prestarAtencion();
+            }
+            else if (accion == "escribir")
+            {
+                distraerse();
+            }
+        }
         public override string ToString()
         {
             return "Nombre: " + this.Nombre + " DNI: " + this.DNI + " Legajo: " + this.Legajo + " Promedio: " + this.Promedio;
