@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    interface Coleccionable
+    interface Iterable
     {
-        int cuantos();
-        Comparable minimo();
-        Comparable maximo();
-        void agregar(Comparable c);
-        bool contiene(Comparable c);
         Iterador crearIterador();
     }
 }

@@ -48,5 +48,10 @@ namespace MP1
             if (pila.contiene(c) || cola.contiene(c)) return true;
             return false;
         }
+
+        public Iterador crearIterador()
+        {
+            return new iteratorColeccionMultiple(new List<Comparable>());
+        }
     }
 }

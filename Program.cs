@@ -1,21 +1,45 @@
 ﻿using MP1;
 
-static void llenar(Coleccionable c)
+static void llenar(Coleccionable coleccionable, string opcion)
 {
-    int i = 0;
-    Random random = new Random();
-    while (i < 20)
+    Fabrica fabrica;
+
+    if (opcion == "alumnos")
     {
-        int n = random.Next(1, 50);
-        c.agregar(new Numero(n));
-        i++;
+        fabrica = new FabricaDeAlumnos();
+        for (int i = 0; i < 20; i++)
+        {
+            Comparable comparable = fabrica.crearAleatorio();
+            coleccionable.agregar(comparable);
+        }
+    }
+    else
+    {
+        fabrica = new FabricaDeNumeros();
+        for (int i = 0; i < 20; i++)
+        {
+            Comparable comparable = fabrica.crearAleatorio();
+            coleccionable.agregar(comparable);
+        }
     }
 }
-static void informar(Coleccionable c)
+static void informar(Coleccionable c, string opcion)
 {
     Console.WriteLine("Canidad: " + c.cuantos());
     Console.WriteLine("Minimo: " + c.minimo().ToString());
     Console.WriteLine("Maximo: " + c.maximo().ToString());
+
+    Fabrica fabrica = new FabricaDeNumeros();
+    Comparable comparable = fabrica.crearPorTeclado();
+    if (c.contiene(comparable))
+    {
+        Console.WriteLine("El elemento leído está en la colección");
+    }
+    else
+    {
+        Console.WriteLine("El elemento leído no está en la colección");
+    }
+
 }
 static string GetNombre()
 {
@@ -30,26 +54,39 @@ static string GetNombre()
     nombres.Add("Amalia");
     return nombres[new Random().Next(nombres.Count - 1)];
 }
-static void llenarPersonas(Coleccionable c)
+static void imprimirElementos(Coleccionable c)
 {
-    for (int i = 0; i < 20; i++)
+    Iterador iter = c.crearIterador();
+
+    while (!iter.fin())
     {
-        Comparable personas = new Persona(GetNombre(), i);
-        c.agregar(personas);
+        Console.WriteLine(iter.actual());
+        iter.siguiente();
     }
 }
-static void llenarAlumnos(Coleccionable c)
+static void cambiarEstrategia(Pila pila, Strategy st)
 {
-    for (int i = 0; i < 20; i++)
+    foreach (Alumno elem in pila.lista)
     {
-        Comparable comparable = new Alumno(GetNombre(), i, i, new Random().Next(10));
-        c.agregar(comparable);
+        elem.SetStrategy(st);
+    }
+}
+static void dictadoDeClases(Profesor p)
+{
+    for (int i = 0; i <= 5; i++)
+    {
+        p.hablarALaClase();
+        p.escribirEnElPizarron();
     }
 }
 
-Pila pila = new Pila();
-Cola cola = new Cola();
-ColeccionMultiple multiple = new ColeccionMultiple(pila, cola);
-llenarAlumnos(pila);
-llenarAlumnos(cola);
-informar(multiple);
+FabricaDeProfesores fabrica  = new FabricaDeProfesores();
+Profesor profesor = (Profesor)fabrica.crearAleatorio();
+
+for (int i = 0; i < 20; i++)
+{
+    Alumno observador = new Alumno(GetNombre(), i, i, new Random().Next(10));
+    profesor.add(observador);
+}
+Console.WriteLine(profesor.Nombre);
+dictadoDeClases(profesor);

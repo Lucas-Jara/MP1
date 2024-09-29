@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class Pila : Coleccionable, Iterable
+    class Conjunto : Coleccionable, Iterable
     {
         public List<Comparable> lista;
         private LlenarColeccionable? strategy;
 
-        public Pila()
+        public Conjunto()
         {
             this.lista = new List<Comparable>();
         }
@@ -48,20 +47,21 @@ namespace MP1
             return m;
         }
 
-        public void agregar(Comparable c)
+        public void agregar(Comparable elem)
         {
-            lista.Add(c);
+            if (!this.contiene(elem))
+            {
+                lista.Add(elem);
+            }
         }
 
-        public bool contiene(Comparable c)
+        public bool contiene(Comparable elem)
         {
-            foreach (Comparable elem in lista)
+            foreach (Comparable e in lista)
             {
-                if (c == elem)
-                {
-                    return true;
-                }
+                if (e.sosIgual(elem)) return true;
             }
+
             return false;
         }
 
@@ -74,10 +74,9 @@ namespace MP1
         {
             strategy.llenar(lista);
         }
-
         public Iterador crearIterador()
         {
-            return new IteradorPila(lista);
+            return new IteratorConjunto(lista);
         }
     }
 }
