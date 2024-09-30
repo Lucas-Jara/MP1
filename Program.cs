@@ -81,16 +81,34 @@ static void dictadoDeClases(Profesor p)
     }
 }
 
-Teacher t = new Teacher();
-
-for (int i = 0; i < 10; i++)
+static void simularClase()
 {
-    Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
-    IAlumno alumno = (IAlumno)fabricaDeAlumnos.crearAleatorio();
-    alumno = new DecoradorRecuadro(alumno);
+    Teacher t = new Teacher();
 
-    Console.WriteLine(alumno.mostrarCalificacion());
-    Student student = new AlumnoAdapterToStudent(alumno);
-    t.goToClass(student);
+    for (int i = 0; i < 10; i++)
+    {
+        Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
+        IAlumno alumno = (IAlumno)fabricaDeAlumnos.crearAleatorio();
+        alumno = new DecoradorRecuadro(alumno);
+
+        Console.WriteLine(alumno.mostrarCalificacion());
+        Student student = new AlumnoAdapterToStudent(alumno);
+        t.goToClass(student);
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
+        IAlumno alumno = (IAlumno)fabricaDeAlumnos.crearAleatorio();
+        IAlumno alumnoEstudioso = new AlumnoMuyEstudioso(alumno.getName(), alumno.getDNI(), alumno.getLegajo(), alumno.getPromedio());
+        alumno = new DecoradorNotaEnLetra(alumnoEstudioso);
+
+        Console.WriteLine(alumno.mostrarCalificacion());
+        Student student = new AlumnoAdapterToStudent(alumno);
+        t.goToClass(student);
+    }
+    t.teachingAClass();
 }
-t.teachingAClass();
+
+
+simularClase();
