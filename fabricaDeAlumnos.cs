@@ -15,12 +15,20 @@ namespace MP1
 
         public override Comparable crearAleatorio()
         {
-            return new Alumno("alum1", 5, 6, 8.2);
+            string n = gd.stringAleatorio(5);
+            int d = gd.numeroAleatorio(10);
+            int l = gd.numeroAleatorio(10);
+            double p = gd.numeroAleatorio(10) - 0.5;
+            return new Alumno(n, d, l, p);
         }
 
         public override Comparable crearPorTeclado()
         {
-            return new Alumno("alum2", 5, 6, 8.2);
+            string n = ld.stringPorTeclado();
+            int d = ld.numeroPorTeclado();
+            int l = ld.numeroPorTeclado();
+            double p = ld.numeroPorTeclado() - 0.5;
+            return new Alumno(n, d, l, p);
         }
     }
 }

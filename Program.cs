@@ -1,4 +1,5 @@
-﻿using MP1;
+﻿using MetodologíasDeProgramaciónI;
+using MP1;
 
 static void llenar(Coleccionable coleccionable, string opcion)
 {
@@ -66,9 +67,9 @@ static void imprimirElementos(Coleccionable c)
 }
 static void cambiarEstrategia(Pila pila, Strategy st)
 {
-    foreach (Alumno elem in pila.lista)
+    foreach (IAlumno elem in pila.lista)
     {
-        elem.SetStrategy(st);
+        elem.setStrategy(st);
     }
 }
 static void dictadoDeClases(Profesor p)
@@ -80,13 +81,16 @@ static void dictadoDeClases(Profesor p)
     }
 }
 
-FabricaDeProfesores fabrica  = new FabricaDeProfesores();
-Profesor profesor = (Profesor)fabrica.crearAleatorio();
+Teacher t = new Teacher();
 
-for (int i = 0; i < 20; i++)
+for (int i = 0; i < 10; i++)
 {
-    Alumno observador = new Alumno(GetNombre(), i, i, new Random().Next(10));
-    profesor.add(observador);
+    Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
+    IAlumno alumno = (IAlumno)fabricaDeAlumnos.crearAleatorio();
+    alumno = new DecoradorRecuadro(alumno);
+
+    Console.WriteLine(alumno.mostrarCalificacion());
+    Student student = new AlumnoAdapterToStudent(alumno);
+    t.goToClass(student);
 }
-Console.WriteLine(profesor.Nombre);
-dictadoDeClases(profesor);
+t.teachingAClass();

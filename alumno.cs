@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class Alumno : Persona, Observador
+    class Alumno : Persona, Observador, IAlumno
     {
         private int legajo;
         private double promedio;
-        private Strategy? strategy = null;
+        private int calificacion;
+        private Strategy strategy = new CompararDNIStrategy();
 
         public Alumno(string n, int d, int l, double p) : base(n, d)
         {
@@ -33,10 +34,26 @@ namespace MP1
                 return promedio;
             }
         }
+        public int Calificacion
+        {
+            get
+            {
+                return calificacion;
+            }
+            set
+            {
+                this.calificacion = value;
+            }
+        }
 
-        public void SetStrategy(Strategy newStrategy)
+        public void setStrategy(Strategy newStrategy)
         {
             strategy = newStrategy;
+        }
+
+        public void setCalificacion(int c)
+        {
+            calificacion = c;
         }
 
         public override bool sosIgual(Comparable c)
@@ -53,6 +70,11 @@ namespace MP1
         public override bool sosMayor(Comparable c)
         {
             return strategy.sosMayor(this, c);
+        }
+
+        public int getCalificacion()
+        {
+            return this.calificacion;
         }
         public void prestarAtencion()
         {
@@ -74,9 +96,35 @@ namespace MP1
                 distraerse();
             }
         }
+        public virtual int responderPregunta(int pregunta)
+        {
+            return new Random().Next(1,3);
+        }
+
         public override string ToString()
         {
             return "Nombre: " + this.Nombre + " DNI: " + this.DNI + " Legajo: " + this.Legajo + " Promedio: " + this.Promedio;
+        }
+
+        public string getName()
+        {
+            return this.Nombre;
+        }
+        public int getLegajo()
+        {
+            return this.Legajo;
+        }
+        public int getDNI()
+        {
+            return this.DNI;
+        }
+        public double getPromedio()
+        {
+            return this.Promedio;
+        }
+        public string mostrarCalificacion()
+        {
+            return this.getName() + " - " + this.getCalificacion();
         }
     }
 }

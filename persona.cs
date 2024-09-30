@@ -33,6 +33,16 @@ namespace MP1
             }
         }
 
+        protected string getNombre()
+        {
+            return Nombre;
+        }
+
+        protected int getDNI()
+        {
+            return DNI;
+        }
+
         public virtual bool sosIgual(Comparable c)
         {
             return DNI == ((Persona)c).DNI;

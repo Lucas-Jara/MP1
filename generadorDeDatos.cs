@@ -14,13 +14,13 @@ namespace MP1
 
         public int numeroAleatorio(int max)
         {
-            return new Random().Next(0, max);
+            return new Random().Next(1, max);
         }
 
         public string stringAleatorio(int cant)
         {
             string salida = "";
-            int rm = new Random().Next(0, 26);
+            int rm = new Random().Next(1, 26);
 
             for (int i = 0; i < rm; i++)
             {

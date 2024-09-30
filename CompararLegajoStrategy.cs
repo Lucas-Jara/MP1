@@ -12,17 +12,17 @@ namespace MP1
 
         public bool sosMenor(Comparable c1, Comparable c2)
         {
-            return ((Alumno)c1).Legajo.CompareTo(((Alumno)c2).Legajo) == 0;
+            return ((IAlumno)c1).getLegajo().CompareTo(((IAlumno)c2).getLegajo()) == 0;
         }
 
         public bool sosIgual(Comparable c1, Comparable c2)
         {
-            return ((Alumno)c1).Legajo.CompareTo(((Alumno)c2).Legajo) == 1;
+            return ((IAlumno)c1).getLegajo().CompareTo(((IAlumno)c2).getLegajo()) == 0;
         }
 
         public bool sosMayor(Comparable c1, Comparable c2)
         {
-            return ((Alumno)c1).Legajo.CompareTo(((Alumno)c2).Legajo) == -1;
+            return ((IAlumno)c1).getLegajo().CompareTo(((IAlumno)c2).getLegajo()) == -1;
         }
     }
 }
