@@ -19,33 +19,6 @@ namespace MP1
             this.promedio = p;
         }
 
-        public int Legajo
-        {
-            get
-            {
-                return legajo;
-            }
-        }
-
-        public double Promedio
-        {
-            get
-            {
-                return promedio;
-            }
-        }
-        public int Calificacion
-        {
-            get
-            {
-                return calificacion;
-            }
-            set
-            {
-                this.calificacion = value;
-            }
-        }
-
         public void setStrategy(Strategy newStrategy)
         {
             strategy = newStrategy;
@@ -101,30 +74,50 @@ namespace MP1
             return new Random().Next(1,3);
         }
 
-        public override string ToString()
-        {
-            return "Nombre: " + this.Nombre + " DNI: " + this.DNI + " Legajo: " + this.Legajo + " Promedio: " + this.Promedio;
-        }
 
-        public string getName()
+        public string getNombre()
         {
-            return this.Nombre;
+            return this.nombre;
         }
         public int getLegajo()
         {
-            return this.Legajo;
+            return this.legajo;
         }
         public int getDNI()
         {
-            return this.DNI;
+            return this.dni;
         }
         public double getPromedio()
         {
-            return this.Promedio;
+            return this.promedio;
+        }
+
+        public void setDNI(int d)
+        {
+            dni = d;
+        }
+
+        public void setLegajo(int l)
+        {
+            legajo = l;
+        }
+
+        public void setNombre(string n)
+        {
+            nombre = n;
+        }
+
+        public void setPromedio(double p)
+        {
+            promedio = p;
         }
         public string mostrarCalificacion()
         {
-            return this.getName() + " - " + this.getCalificacion();
+            return this.getNombre() + " - " + this.getCalificacion();
+        }
+        public override string ToString()
+        {
+            return "Nombre: " + this.nombre + " DNI: " + this.dni + " Legajo: " + this.legajo + " Promedio: " + this.promedio;
         }
     }
 }

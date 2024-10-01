@@ -8,8 +8,8 @@ namespace MP1
 {
     class Persona : Comparable
     {
-        private string nombre;
-        private int dni;
+        protected string nombre;
+        protected int dni;
 
         public Persona(string n, int d)
         {
@@ -17,51 +17,44 @@ namespace MP1
             dni = d;
         }
 
-        public string Nombre
-        {
-            get
-            {
-                return nombre;
-            }
-        }
-
-        public int DNI
-        {
-            get
-            {
-                return dni;
-            }
-        }
 
         protected string getNombre()
         {
-            return Nombre;
+            return nombre;
+        }
+        protected void setNombre(string n)
+        {
+            nombre = n;
         }
 
         protected int getDNI()
         {
-            return DNI;
+            return dni;
+        }
+        protected void setDNI(int n)
+        {
+            dni = n;
         }
 
         public virtual bool sosIgual(Comparable c)
         {
-            return DNI == ((Persona)c).DNI;
+            return dni == ((Persona)c).dni;
         }
 
         public virtual bool sosMenor(Comparable c)
         {
-            return DNI > ((Persona)c).DNI;
+            return dni > ((Persona)c).dni;
 
         }
 
         public virtual bool sosMayor(Comparable c)
         {
-            return DNI < ((Persona)c).DNI;
+            return dni < ((Persona)c).dni;
         }
 
         public override string ToString()
         {
-            return "Nombre: " + Nombre + " DNI: " + DNI;
+            return "Nombre: " + nombre + " DNI: " + dni;
         }
     }
 }

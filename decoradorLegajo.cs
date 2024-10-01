@@ -12,7 +12,7 @@ namespace MP1
 
         public override string mostrarCalificacion()
         {
-            return alumno.getName() + " (" + alumno.getLegajo() + "/" + alumno.getCalificacion() + ")" + "\t" + alumno.getCalificacion();
+            return alumno.getNombre() + " (" + alumno.getLegajo() + "/" + alumno.getCalificacion() + ")" + "\t" + alumno.getCalificacion();
         }
     }
 }

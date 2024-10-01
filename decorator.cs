@@ -16,23 +16,43 @@ namespace MP1
 
         public abstract string mostrarCalificacion();
 
-        void IAlumno.distraerse()
+        public void distraerse()
         {
             alumno.distraerse();
         }
-        int IAlumno.getCalificacion()
+        public int getCalificacion()
         {
            return alumno.getCalificacion();
         }
-        string IAlumno.getName()
+        public string getNombre()
         {
-            return alumno.getName();
+            return alumno.getNombre();
         }
-        int IAlumno.getDNI()
+
+        public void setDNI(int dNI)
+        {
+            alumno.setDNI(dNI);
+        }
+
+        public void setLegajo(int legajo)
+        {
+            alumno.setLegajo(legajo);
+        }
+
+        public void setNombre(string name)
+        {
+            alumno.setNombre(name);
+        }
+
+        public void setPromedio(double promedio)
+        {
+            alumno.setPromedio(promedio);
+        }
+        public int getDNI()
         {
             return alumno.getDNI();
         }
-        int IAlumno.getLegajo()
+        public int getLegajo()
         {
             return alumno.getLegajo();
         }
@@ -40,19 +60,19 @@ namespace MP1
         {
             return alumno.getPromedio();
         }
-        void IAlumno.prestarAtencion()
+        public void prestarAtencion()
         {
             alumno.prestarAtencion();
         }
-        int IAlumno.responderPregunta(int pregunta)
+        public int responderPregunta(int pregunta)
         {
             return alumno.responderPregunta(pregunta);
         }
-        void IAlumno.setCalificacion(int c)
+        public void setCalificacion(int c)
         {
             alumno.setCalificacion(c);
         }
-        void IAlumno.setStrategy(Strategy newStrategy)
+        public void setStrategy(Strategy newStrategy)
         {
             alumno.setStrategy(newStrategy);
         }
@@ -68,7 +88,7 @@ namespace MP1
         {
             return alumno.sosMenor(n);
         }
-        void IAlumno.update(string accion)
+        public void update(string accion)
         {
             alumno.update(accion);
         }

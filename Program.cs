@@ -5,23 +5,34 @@ static void llenar(Coleccionable coleccionable, string opcion)
 {
     Fabrica fabrica;
 
-    if (opcion == "alumnos")
+    switch (opcion)
     {
-        fabrica = new FabricaDeAlumnos();
-        for (int i = 0; i < 20; i++)
-        {
-            Comparable comparable = fabrica.crearAleatorio();
-            coleccionable.agregar(comparable);
-        }
-    }
-    else
-    {
-        fabrica = new FabricaDeNumeros();
-        for (int i = 0; i < 20; i++)
-        {
-            Comparable comparable = fabrica.crearAleatorio();
-            coleccionable.agregar(comparable);
-        }
+        case "alumnos":
+            fabrica = new FabricaDeAlumnos();
+            for (int i = 0; i < 20; i++)
+            {
+                Comparable comparable = fabrica.crearAleatorio();
+                coleccionable.agregar(comparable);
+            }
+            break;
+
+        case "alumnosMuyEstudiosos":
+            fabrica = new FabricaDeAlumnoMuyEstudioso();
+            for (int i = 0; i < 20; i++)
+            {
+                Comparable comparable = fabrica.crearAleatorio();
+                coleccionable.agregar(comparable);
+            }
+            break;
+
+        case "numeros":
+            fabrica = new FabricaDeNumeros();
+            for (int i = 0; i < 20; i++)
+            {
+                Comparable comparable = fabrica.crearAleatorio();
+                coleccionable.agregar(comparable);
+            }
+            break;
     }
 }
 static void informar(Coleccionable c, string opcion)
@@ -88,8 +99,9 @@ static void simularClase()
     for (int i = 0; i < 10; i++)
     {
         Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
-        IAlumno alumno = (IAlumno)fabricaDeAlumnos.crearAleatorio();
+        IAlumno alumno = (IAlumno)new ProxyAlumno((IAlumno)fabricaDeAlumnos.crearAleatorio());
         alumno = new DecoradorRecuadro(alumno);
+        Console.WriteLine(alumno.responderPregunta(7));
 
         Console.WriteLine(alumno.mostrarCalificacion());
         Student student = new AlumnoAdapterToStudent(alumno);
@@ -100,7 +112,7 @@ static void simularClase()
     {
         Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
         IAlumno alumno = (IAlumno)fabricaDeAlumnos.crearAleatorio();
-        IAlumno alumnoEstudioso = new AlumnoMuyEstudioso(alumno.getName(), alumno.getDNI(), alumno.getLegajo(), alumno.getPromedio());
+        IAlumno alumnoEstudioso = new AlumnoMuyEstudioso(alumno.getNombre(), alumno.getDNI(), alumno.getLegajo(), alumno.getPromedio());
         alumno = new DecoradorNotaEnLetra(alumnoEstudioso);
 
         Console.WriteLine(alumno.mostrarCalificacion());
@@ -111,4 +123,12 @@ static void simularClase()
 }
 
 
-simularClase();
+Aula aula = new Aula();
+Pila pila = new Pila();
+
+pila.setOrdenInicio(new OrdenInicio(aula));
+pila.setOrdenLlegaAlumno(new OrdenLlegaAlumno(aula));
+pila.setOrdenAulaLlena(new OrdenAulaLlena(aula));
+
+llenar(pila, "alumnos");
+llenar(pila, "alumnosMuyEstudiosos");

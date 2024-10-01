@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class Pila : Coleccionable, Iterable
+    class Pila : Coleccionable, Iterable, Ordenable
     {
         public List<Comparable> lista;
         private LlenarColeccionable? strategy;
@@ -24,7 +24,7 @@ namespace MP1
 
         public Comparable minimo()
         {
-            Comparable m = (Comparable)lista[0];
+            Comparable m = lista[0];
             foreach (Comparable n in lista)
             {
                 if (m.sosMenor(n))
@@ -37,7 +37,7 @@ namespace MP1
 
         public Comparable maximo()
         {
-            Comparable m = (Comparable)lista[0];
+            Comparable m = lista[0];
             foreach (Comparable n in lista)
             {
                 if (m.sosMayor(n))
@@ -78,6 +78,21 @@ namespace MP1
         public Iterador crearIterador()
         {
             return new IteradorPila(lista);
+        }
+
+        public void setOrdenInicio(OrdenEnAula1 aula)
+        {
+            aula.ejecutar();
+        }
+
+        public void setOrdenLlegaAlumno(OrdenEnAula2 aula)
+        {
+            if(cuantos() == 1) aula.ejecutar(lista[0]);
+        }
+
+        public void setOrdenAulaLlena(OrdenEnAula1 aula)
+        {
+            aula.ejecutar();
         }
     }
 }

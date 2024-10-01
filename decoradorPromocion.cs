@@ -14,10 +14,10 @@ namespace MP1
     {
             if(alumno.getCalificacion() > 6)
             {
-                return alumno.getName() + "\t" + alumno.getCalificacion() + "(APROBADO)";
+                return alumno.getNombre() + "\t" + alumno.getCalificacion() + "(APROBADO)";
             }
             
-            return alumno.getName() + "\t" + alumno.getCalificacion() + "(DESAPROBADO)";
+            return alumno.getNombre() + "\t" + alumno.getCalificacion() + "(DESAPROBADO)";
 
         }
     }

@@ -15,10 +15,14 @@ namespace MP1
         void update(string accion);
         int responderPregunta(int pregunta);
         void setCalificacion(int c);
-        string getName();
+        string getNombre();
+        void setNombre(string nombre);
         int getLegajo();
+        void setLegajo(int legajo);
         int getDNI();
+        void setDNI(int dni);
         double getPromedio();
+        void setPromedio(double promedio);
         bool sosIgual(Comparable n);
         bool sosMenor(Comparable n);
         bool sosMayor(Comparable n);

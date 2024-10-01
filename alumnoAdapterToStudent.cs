@@ -25,7 +25,7 @@ namespace MP1
 
         public string getName()
         {
-            return a.getName();
+            return a.getNombre();
         }
 
         public bool greaterThan(Student student)
