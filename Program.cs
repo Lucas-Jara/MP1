@@ -99,7 +99,7 @@ static void simularClase()
     for (int i = 0; i < 10; i++)
     {
         Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
-        IAlumno alumno = (IAlumno)new ProxyAlumno((IAlumno)fabricaDeAlumnos.crearAleatorio());
+        IAlumno alumno = new ProxyAlumno((Alumno)fabricaDeAlumnos.crearAleatorio());
         alumno = new DecoradorRecuadro(alumno);
         Console.WriteLine(alumno.responderPregunta(7));
 
@@ -124,11 +124,10 @@ static void simularClase()
 
 
 Aula aula = new Aula();
-Pila pila = new Pila();
+Cola pila = new Cola();
 
 pila.setOrdenInicio(new OrdenInicio(aula));
 pila.setOrdenLlegaAlumno(new OrdenLlegaAlumno(aula));
 pila.setOrdenAulaLlena(new OrdenAulaLlena(aula));
-
 llenar(pila, "alumnos");
 llenar(pila, "alumnosMuyEstudiosos");

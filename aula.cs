@@ -11,7 +11,6 @@ namespace MP1
     {
         private Teacher teachet;
 
-        public Aula() { }
 
         public void comenzar()
         {
@@ -22,12 +21,12 @@ namespace MP1
         public void nuevoAlumno(Alumno alumno) 
         {
             Student student = new AlumnoAdapterToStudent(alumno);
-            teachet.goToClass(student);
+            if(teachet != null) teachet.goToClass(student);
         }
 
         public void claseLista()
         {
-            teachet.teachingAClass();
+            if (teachet != null) teachet.teachingAClass();
         }
     }
 }

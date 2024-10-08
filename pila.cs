@@ -12,6 +12,9 @@ namespace MP1
         public List<Comparable> lista;
         private LlenarColeccionable? strategy;
 
+        private OrdenInicio? ordenInicio;
+        private OrdenLlegaAlumno? ordenLlegaAlumno;
+        private OrdenAulaLlena? ordenAulaLlena;
         public Pila()
         {
             this.lista = new List<Comparable>();
@@ -50,7 +53,10 @@ namespace MP1
 
         public void agregar(Comparable c)
         {
+            if(cuantos() == 0) ordenInicio.ejecutar();
+            else ordenLlegaAlumno.ejecutar(c);
             lista.Add(c);
+            if (cuantos() == 40) ordenAulaLlena.ejecutar();
         }
 
         public bool contiene(Comparable c)
@@ -80,19 +86,19 @@ namespace MP1
             return new IteradorPila(lista);
         }
 
-        public void setOrdenInicio(OrdenEnAula1 aula)
+        public void setOrdenInicio(OrdenInicio aula)
         {
-            aula.ejecutar();
+            ordenInicio = aula;
         }
 
-        public void setOrdenLlegaAlumno(OrdenEnAula2 aula)
+        public void setOrdenLlegaAlumno(OrdenLlegaAlumno aula)
         {
-            if(cuantos() == 1) aula.ejecutar(lista[0]);
+            ordenLlegaAlumno = aula;
         }
 
-        public void setOrdenAulaLlena(OrdenEnAula1 aula)
+        public void setOrdenAulaLlena(OrdenAulaLlena aula)
         {
-            aula.ejecutar();
+            ordenAulaLlena = aula;
         }
     }
 }

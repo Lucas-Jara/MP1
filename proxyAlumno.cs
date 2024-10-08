@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class ProxyAlumno : IAlumnoReal
+    class ProxyAlumno : IAlumno
     {
-        IAlumno alumno;
+        Alumno alumno;
 
-        public ProxyAlumno() { }
-        public ProxyAlumno(IAlumno alumno)
+        public ProxyAlumno(Alumno alumno)
         {
             this.alumno = alumno;
         }
@@ -35,6 +34,10 @@ namespace MP1
         {
             return alumno.getPromedio();
         }
+        public int getCalificacion()
+        {
+            return alumno.getCalificacion();
+        }
 
         public void setDNI(int dNI)
         {
@@ -55,16 +58,64 @@ namespace MP1
         {
             alumno.setPromedio(promedio);
         }
+        public void setCalificacion(int calificacion)
+        {
+            if(alumno == null)
+            {
+                alumno.setCalificacion(getCalificacion());
+            }
+            alumno.setCalificacion(calificacion);
+        }
 
         public int responderPregunta(int pregunta)
         {
             if(alumno == null)
             {
-                Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
-                alumno = (IAlumno)fabricaDeAlumnos.crearAleatorio();
+                alumno = new Alumno(alumno.getNombre(), alumno.getDNI(), alumno.getLegajo(), alumno.getPromedio());
+                alumno.setCalificacion(alumno.getCalificacion());
             }
 
             return alumno.responderPregunta(pregunta);
+        }
+
+        public void setStrategy(Strategy newStrategy)
+        {
+            alumno.setStrategy(newStrategy);
+        }
+
+        public void prestarAtencion()
+        {
+            alumno.prestarAtencion();
+        }
+
+        public void distraerse()
+        {
+            alumno.distraerse();
+        }
+
+        public void update(string accion)
+        {
+            alumno.update(accion);
+        }
+
+        public bool sosIgual(Comparable n)
+        {
+            return alumno.sosIgual(n);
+        }
+
+        public bool sosMenor(Comparable n)
+        {
+            return alumno.sosMenor(n);
+        }
+
+        public bool sosMayor(Comparable n)
+        {
+            return alumno.sosMayor(n);
+        }
+
+        public string mostrarCalificacion()
+        {
+            return alumno.mostrarCalificacion();
         }
     }
 }

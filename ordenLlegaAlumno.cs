@@ -17,9 +17,7 @@ namespace MP1
 
         public void ejecutar(Comparable c)
         {
-            Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
-            Alumno alumno = (Alumno)fabricaDeAlumnos.crearAleatorio();
-            aula.nuevoAlumno(alumno);
+            aula.nuevoAlumno((Alumno)c);
         }
     }
 }

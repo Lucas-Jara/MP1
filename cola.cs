@@ -4,9 +4,14 @@ using System.Collections.Generic;
 
 namespace MP1
 {
-    class Cola : Coleccionable, Iterable
+    class Cola : Coleccionable, Iterable, Ordenable
     {
         public List<Comparable> lista;
+        private LlenarColeccionable strategy;
+
+        private OrdenInicio? ordenInicio;
+        private OrdenLlegaAlumno? ordenLlegaAlumno;
+        private OrdenAulaLlena? ordenAulaLlena;
         public Cola()
         {
             this.lista = new List<Comparable>();
@@ -19,7 +24,7 @@ namespace MP1
 
         public Comparable minimo()
         {
-            Comparable m = (Comparable)lista[0];
+            Comparable m = lista[0];
             foreach (Comparable n in lista)
             {
                 if (m.sosMenor(n))
@@ -32,7 +37,7 @@ namespace MP1
 
         public Comparable maximo()
         {
-            Comparable m = (Comparable)lista[0];
+            Comparable m = lista[0];
             foreach (Comparable n in lista)
             {
                 if (m.sosMayor(n))
@@ -45,7 +50,10 @@ namespace MP1
 
         public void agregar(Comparable c)
         {
+            if (cuantos() == 0) ordenInicio.ejecutar();
+            else ordenLlegaAlumno.ejecutar(c);
             lista.Add(c);
+            if (cuantos() == 40) ordenAulaLlena.ejecutar();
         }
 
         public bool contiene(Comparable c)
@@ -59,10 +67,33 @@ namespace MP1
             }
             return false;
         }
+        public void SetLlenarColeccionable(LlenarColeccionable newStrategy)
+        {
+            strategy = newStrategy;
+        }
 
+        public void llenarColeccionable()
+        {
+            strategy.llenar(lista);
+        }
         public Iterador crearIterador()
         {
             return new IteradorCola(lista);
+        }
+
+        public void setOrdenInicio(OrdenInicio aula)
+        {
+            ordenInicio = aula;
+        }
+
+        public void setOrdenLlegaAlumno(OrdenLlegaAlumno aula)
+        {
+            ordenLlegaAlumno = aula;
+        }
+
+        public void setOrdenAulaLlena(OrdenAulaLlena aula)
+        {
+            ordenAulaLlena = aula;
         }
     }
 }

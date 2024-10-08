@@ -8,9 +8,9 @@ namespace MP1
 {
     interface Ordenable
     {
-        void setOrdenInicio(OrdenEnAula1 aula);
-        void setOrdenLlegaAlumno(OrdenEnAula2 aula);
-        void setOrdenAulaLlena(OrdenEnAula1 aula);
+        void setOrdenInicio(OrdenInicio aula);
+        void setOrdenLlegaAlumno(OrdenLlegaAlumno aula);
+        void setOrdenAulaLlena(OrdenAulaLlena aula);
 
     }
 }

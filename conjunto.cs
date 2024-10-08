@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class Conjunto : Coleccionable, Iterable
+    class Conjunto : Coleccionable, Iterable, Ordenable
     {
         public List<Comparable> lista;
         private LlenarColeccionable? strategy;
 
+        private OrdenInicio? ordenInicio;
+        private OrdenLlegaAlumno? ordenLlegaAlumno;
+        private OrdenAulaLlena? ordenAulaLlena;
         public Conjunto()
         {
             this.lista = new List<Comparable>();
@@ -23,7 +26,7 @@ namespace MP1
 
         public Comparable minimo()
         {
-            Comparable m = (Comparable)lista[0];
+            Comparable m = lista[0];
             foreach (Comparable n in lista)
             {
                 if (m.sosMenor(n))
@@ -36,7 +39,7 @@ namespace MP1
 
         public Comparable maximo()
         {
-            Comparable m = (Comparable)lista[0];
+            Comparable m = lista[0];
             foreach (Comparable n in lista)
             {
                 if (m.sosMayor(n))
@@ -47,19 +50,22 @@ namespace MP1
             return m;
         }
 
-        public void agregar(Comparable elem)
+        public void agregar(Comparable c)
         {
-            if (!this.contiene(elem))
+            if (!this.contiene(c))
             {
-                lista.Add(elem);
+                if (cuantos() == 0) ordenInicio.ejecutar();
+                else ordenLlegaAlumno.ejecutar(c);
+                lista.Add(c);
+                if (cuantos() == 40) ordenAulaLlena.ejecutar();
             }
         }
 
-        public bool contiene(Comparable elem)
+        public bool contiene(Comparable c)
         {
             foreach (Comparable e in lista)
             {
-                if (e.sosIgual(elem)) return true;
+                if (e.sosIgual(c)) return true;
             }
 
             return false;
@@ -77,6 +83,20 @@ namespace MP1
         public Iterador crearIterador()
         {
             return new IteratorConjunto(lista);
+        }
+        public void setOrdenInicio(OrdenInicio aula)
+        {
+            ordenInicio = aula;
+        }
+
+        public void setOrdenLlegaAlumno(OrdenLlegaAlumno aula)
+        {
+            ordenLlegaAlumno = aula;
+        }
+
+        public void setOrdenAulaLlena(OrdenAulaLlena aula)
+        {
+            ordenAulaLlena = aula;
         }
     }
 }
