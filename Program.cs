@@ -119,15 +119,58 @@ static void simularClase()
         Student student = new AlumnoAdapterToStudent(alumno);
         t.goToClass(student);
     }
+
+    for (int i = 0; i < 5; i++)
+    {
+        Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
+        Fabrica fabricaDeAlumnosCompuestos = new FabricaDeAlumnosCompuestos();
+        ProxyAlumno alumno = new ProxyAlumno((Alumno)fabricaDeAlumnos.crearAleatorio());
+
+        AlumnoCompuesto composite = (AlumnoCompuesto)fabricaDeAlumnosCompuestos.crearAleatorio();
+        composite.agregar(alumno);
+
+        Console.WriteLine(alumno.mostrarCalificacion());
+        Student student = new AlumnoAdapterToStudent(alumno);
+        t.goToClass(student);
+    }
+
     t.teachingAClass();
 }
 
+static void elegirJuego()
+{
+    Console.WriteLine("---Juegos---");
+    Console.WriteLine("[1] - ChinChón");
+    Console.WriteLine("[2] - Carrera de caballos");
+    Console.WriteLine("[0] - salir");
+    Console.Write("Ingrese una opción: ");
+    int opcion = int.Parse(Console.ReadLine());
 
-Aula aula = new Aula();
-Cola pila = new Cola();
+    while (opcion != 0)
+    {
+        if(opcion == 1)
+        {
+            Player p1 = new Player("Lucas", 4);
+            Player p2 = new Player("Juan", 5);
+            JuegoDeCartas juego = new ChinChon(new List<Player>([p1, p2]));
+            List<Carta> mazo = juego.generarCartas();
+            juego.mezclarMazo(mazo);
+            juego.repartirCartas();
+            juego.jugarUnaMano();
 
-pila.setOrdenInicio(new OrdenInicio(aula));
-pila.setOrdenLlegaAlumno(new OrdenLlegaAlumno(aula));
-pila.setOrdenAulaLlena(new OrdenAulaLlena(aula));
-llenar(pila, "alumnos");
-llenar(pila, "alumnosMuyEstudiosos");
+        }
+        else
+        {
+            PlayerPalo p1 = new PlayerPalo("Lucas", 4);
+            PlayerPalo p2 = new PlayerPalo("Juan", 5);
+            JuegoDeCartas juego = new CarrerasDeCaballo(new List<Player>([p1, p2]));
+            List<Carta> mazo =juego.generarCartas();
+            juego.mezclarMazo(mazo);
+            juego.jugarUnaMano();
+        }
+
+    }
+}
+
+
+elegirJuego();

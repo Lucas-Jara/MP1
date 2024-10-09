@@ -6,18 +6,20 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class ClaveValor : Comparable
+    class ClaveValor<TClave, TValor> : IComparable<ClaveValor<TClave, TValor>>
+    where TClave : IComparable<TClave>
+    where TValor : IComparable<TValor>
     {
-        private Comparable _clave;
-        private Comparable _valor;
+        private TClave _clave;
+        private TValor _valor;
 
-        public ClaveValor(Comparable c, Comparable v)
+        public ClaveValor(TClave c, TValor v)
         {
             this._clave = c;
             this._valor = v;
         }
 
-        public Comparable clave
+        public TClave clave
         {
             get
             {
@@ -25,7 +27,7 @@ namespace MP1
             }
         }
 
-        public Comparable valor
+        public TValor valor
         {
             get
             {
@@ -33,25 +35,30 @@ namespace MP1
             }
         }
 
-        public virtual bool sosIgual(Comparable c)
+        public bool sosIgual(ClaveValor<TClave, TValor> otro)
         {
-            return this.clave == c;
+            return this.clave.CompareTo(otro.clave) == 0;
         }
 
-        public virtual bool sosMenor(Comparable c)
+        public bool sosMenor(ClaveValor<TClave, TValor> otro)
         {
-            return this.clave.sosMenor(((ClaveValor)c).clave);
-
+            return this.clave.CompareTo(otro.clave) < 0;
         }
 
-        public virtual bool sosMayor(Comparable c)
+        public bool sosMayor(ClaveValor<TClave, TValor> otro)
         {
-            return this.clave.sosMayor(((ClaveValor)c).clave);
+            return this.clave.CompareTo(otro.clave) > 0;
         }
 
         public override string ToString()
         {
             return this.valor.ToString();
         }
+
+        public int CompareTo(ClaveValor<TClave, TValor> otro)
+        {
+            return this.clave.CompareTo(otro.clave);
+        }
     }
+
 }

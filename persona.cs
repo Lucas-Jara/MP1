@@ -18,20 +18,20 @@ namespace MP1
         }
 
 
-        protected string getNombre()
+        public virtual string getNombre()
         {
             return nombre;
         }
-        protected void setNombre(string n)
+        public virtual void setNombre(string n)
         {
             nombre = n;
         }
 
-        protected int getDNI()
+        public virtual int getDNI()
         {
             return dni;
         }
-        protected void setDNI(int n)
+        public virtual void setDNI(int n)
         {
             dni = n;
         }

@@ -53,20 +53,19 @@ namespace MP1
 
         public void agregar(Comparable c)
         {
-            ClaveValor nuevoElemento = new ClaveValor(new Numero(this.cuantos()), c); // Valor po defecto
             if (cuantos() == 0) ordenInicio.ejecutar();
             else ordenLlegaAlumno.ejecutar(c);
-            conjunto.agregar(nuevoElemento);
+            conjunto.agregar(c);
             if (cuantos() == 40) ordenAulaLlena.ejecutar();
         }
 
         public Comparable valorDe(Comparable clave)
         {
-            foreach (ClaveValor elemento in conjunto.lista)
+            foreach (Comparable elemento in conjunto.lista)
             {
-                if (clave.sosIgual(elemento.clave))
+                if (clave.sosIgual(elemento))
                 {
-                    return elemento.valor;
+                    return elemento;
                 }
             }
             return null;
@@ -74,9 +73,9 @@ namespace MP1
 
         public bool contiene(Comparable elem)
         {
-            foreach (ClaveValor e in conjunto.lista)
+            foreach (Comparable e in conjunto.lista)
             {
-                if (e.clave == elem) return true;
+                if (e == elem) return true;
             }
 
             return false;
