@@ -8,8 +8,8 @@ namespace MP1
 {
     class FabricaDeNumeros : Fabrica
     {
-        private LectorDeDatos ld = new LectorDeDatos();
-        private GeneradorDeDatos gd = new GeneradorDeDatos();
+        private LectorDeDatos ld = new LectorDeDatos(null);
+        private GeneradorDeDatos gd = GeneradorDeDatos.getInstance(null);
 
         public FabricaDeNumeros() { }
 

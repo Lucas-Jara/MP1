@@ -6,28 +6,36 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class GeneradorDeDatos
+    class GeneradorDeDatos : Manejador
     {
-        string abc = "abcdefghijklmnopqrstuvqxyz";
+        private static GeneradorDeDatos generadorDeDatos;
+        private GeneradorDeDatos(Manejador m): base(m) {}
 
-        public GeneradorDeDatos() { }
+        public static GeneradorDeDatos getInstance(Manejador m)
+        {
+            if(generadorDeDatos == null)
+            {
+                generadorDeDatos = new GeneradorDeDatos(m);
+            }
+            return generadorDeDatos;
+        }
 
-        public int numeroAleatorio(int max)
+        public override int numeroAleatorio(int max)
         {
             return new Random().Next(1, max);
         }
 
-        public string stringAleatorio(int cant)
+        public override string stringAleatorio(int cant)
         {
-            string salida = "";
-            int rm = new Random().Next(1, 26);
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            StringBuilder result = new StringBuilder(cant);
 
-            for (int i = 0; i < rm; i++)
+            for (int i = 0; i < cant; i++)
             {
-                salida += abc[i];
+                result.Append(chars[new Random().Next(chars.Length)]);
             }
 
-            return salida;
+            return result.ToString();
         }
     }
 }

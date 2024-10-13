@@ -4,11 +4,12 @@ using MP1;
 static void llenar(Coleccionable coleccionable, string opcion)
 {
     Fabrica fabrica;
+    Manejador m = crearCadenaDeResponsabilidades();
 
     switch (opcion)
     {
         case "alumnos":
-            fabrica = new FabricaDeAlumnos();
+            fabrica = new FabricaDeAlumnos(m);
             for (int i = 0; i < 20; i++)
             {
                 Comparable comparable = fabrica.crearAleatorio();
@@ -95,23 +96,23 @@ static void dictadoDeClases(Profesor p)
 static void simularClase()
 {
     Teacher t = new Teacher();
+    Manejador m = crearCadenaDeResponsabilidades();
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 5; i++)
     {
-        Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
+        Fabrica fabricaDeAlumnos = new FabricaDeAlumnos(m);
         IAlumno alumno = new ProxyAlumno((Alumno)fabricaDeAlumnos.crearAleatorio());
         alumno = new DecoradorRecuadro(alumno);
-        Console.WriteLine(alumno.responderPregunta(7));
 
         Console.WriteLine(alumno.mostrarCalificacion());
         Student student = new AlumnoAdapterToStudent(alumno);
         t.goToClass(student);
     }
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 2; i++)
     {
-        Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
-        IAlumno alumno = (IAlumno)fabricaDeAlumnos.crearAleatorio();
+        Fabrica fabricaDeAlumnos = new FabricaDeAlumnos(m);
+        IAlumno alumno = (IAlumno)fabricaDeAlumnos.crearPorTeclado();
         IAlumno alumnoEstudioso = new AlumnoMuyEstudioso(alumno.getNombre(), alumno.getDNI(), alumno.getLegajo(), alumno.getPromedio());
         alumno = new DecoradorNotaEnLetra(alumnoEstudioso);
 
@@ -122,7 +123,7 @@ static void simularClase()
 
     for (int i = 0; i < 5; i++)
     {
-        Fabrica fabricaDeAlumnos = new FabricaDeAlumnos();
+        Fabrica fabricaDeAlumnos = new FabricaDeAlumnos(m);
         Fabrica fabricaDeAlumnosCompuestos = new FabricaDeAlumnosCompuestos();
         ProxyAlumno alumno = new ProxyAlumno((Alumno)fabricaDeAlumnos.crearAleatorio());
 
@@ -172,5 +173,14 @@ static void elegirJuego()
     }
 }
 
+static Manejador crearCadenaDeResponsabilidades()
+{
+    Manejador m = LectorDeArchivos.getInstance(null);
+    m = GeneradorDeDatos.getInstance(m);
+    m = new LectorDeDatos(m);
+    return m;
+}
 
-elegirJuego();
+
+
+simularClase();

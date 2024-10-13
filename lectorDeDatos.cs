@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class LectorDeDatos
+    class LectorDeDatos : Manejador
     {
-        public LectorDeDatos() { }
+        public LectorDeDatos(Manejador m) :base(m) { }
 
-        public int numeroPorTeclado()
+        public override int numeroPorTeclado()
         {
             Console.WriteLine("Ingrese un número: ");
             int num = int.Parse(Console.ReadLine());
             return num;
         }
 
-        public string stringPorTeclado()
+        public override string stringPorTeclado()
         {
             Console.WriteLine("Ingrese una palabra: ");
             string palabra = Console.ReadLine();

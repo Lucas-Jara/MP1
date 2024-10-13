@@ -6,22 +6,21 @@ using System.Threading.Tasks;
 
 namespace MP1
 {
-    class FabricaDeAlumnos : Fabrica
+    internal class FabricaDeAlumnosCompuestoDesdeDatos : Fabrica
     {
         Manejador manejador;
 
-        public FabricaDeAlumnos(Manejador m)
+        public FabricaDeAlumnosCompuestoDesdeDatos(Manejador m)
         {
             manejador = m;
         }
-
         public override Comparable crearAleatorio()
         {
-            string n = manejador.stringAleatorio(5);
-            int d = manejador.numeroAleatorio(10);
-            int l = manejador.numeroAleatorio(10);
-            double p = manejador.numeroAleatorio(10) - 0.5;
-            return new Alumno(n, d, l, p);
+            string n = manejador.stringDesdeArchivo(5);
+            double d = manejador.numeroDesdeArchivo(10.0); ;
+            double l = manejador.numeroDesdeArchivo(10.0);
+            double p = manejador.numeroDesdeArchivo(10.0);
+            return new Alumno(n, Convert.ToInt32(d), Convert.ToInt32(l), p);
         }
 
         public override Comparable crearPorTeclado()
